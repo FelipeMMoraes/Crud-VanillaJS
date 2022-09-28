@@ -1,7 +1,11 @@
 // General
 
-@import "reset";
 @import "variables";
-@import "general";
+@import "reset";
 
 // Sections
+
+@import "main";
+@import "buttons";
+@import "modal";
+@import "records";
