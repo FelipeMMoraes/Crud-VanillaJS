@@ -1,9 +1,11 @@
-const openModal = () => document.getElementById("modal")
+// modal
+const openModal = () => document.getElementById('modal')
 .classList.add("active");
 
-const closeModal = () => document.getElementById("modal")
-.classList.remove("active");
-
+const closeModal = () => {
+  clearFields()
+  document.getElementById("modal") .classList.remove("active");
+}
 
 // CRUD - create read update delete
 
@@ -33,8 +35,32 @@ const readClient = () => getLocalStorage()
 
 const createClient = (client) => {
   const dbClient = getLocalStorage()
-  dbClient.push(client)
+  dbClient.push (client)
   setLocalStorage(dbClient)
+}
+
+const isValidFields = () => {
+  return document.getElementById('form').reportValidity()
+}
+
+// Interação com o layout
+
+const clearFields = () => {
+  const fields = document.querySelectorAll('.modal-field')
+  fields.forEach(field => field.value = "")
+}
+
+const saveClient = () => {
+  if(isValidFields()) {
+    const client = {
+      nome: document.getElementById('nome').value,
+      email: document.getElementById('email').value,
+      celular: document.getElementById('celular').value,
+      cidade: document.getElementById('cidade').value
+    }
+    createClient(client)
+    closeModal()
+  }
 }
 
 // Events
@@ -43,3 +69,6 @@ document.getElementById("cadastrarCliente")
 
 document.getElementById("modalClose")
 .addEventListener("click", closeModal);
+
+document.getElementById('save')
+.addEventListener('click', saveClient)
